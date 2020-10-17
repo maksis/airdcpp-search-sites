@@ -1,12 +1,12 @@
 
 const extrawords = [ 
-	'multisubs', 'multi', 'dvdrip', 'dvdr', 'real proper', 'proper', 'ultimate directors cut', 'directors cut', 'dircut', 'x264', 'pal', 'complete', 'limited', 'ntsc', 'bd25',
+	'multisubs', 'multi', 'dvdrip', 'dvdr', 'real proper', 'proper', 'ultimate directors cut', 'directors cut', 'dircut', 'x264', 'x265', 'pal', 'complete', 'limited', 'ntsc', 'bd25',
 	'bd50', 'bdr', 'bd9', 'retail', 'bluray', 'nordic', '720p', '1080p', 'read nfo', 'dts', 'hdtv', 'pdtv', 'hddvd', 'repack', 'internal', 'custom', 'subbed', 'unrated', 'recut',
 	'extended', 'dts51', 'finsub', 'swesub', 'dksub', 'nosub', 'remastered', '2disc', 'rf', 'fi', 'swe', 'stv', 'r5', 'festival', 'anniversary edition', 'bdrip', 'ac3', 'xvid',
 	'ws', 'int' 
 ];
 
-const yearReg = /((\[)?((19[0-9]{2})|(20[0-1][0-9]))|(s[0-9]([0-9])?(e|d)[0-9]([0-9])?)|(Season(\.)[0-9]([0-9])?)).*/;
+const yearReg = /((\[)?((19[0-9]{2})|(20[0-9]{2}))|(s[0-9]([0-9])?(e|d)[0-9]([0-9])?)|(Season(\.)[0-9]([0-9])?)).*/;
 
 export const cleanTitle = (searchTerm: string) => {
 	let ret = searchTerm.toLocaleLowerCase();

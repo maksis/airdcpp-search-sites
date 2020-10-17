@@ -3,10 +3,10 @@ import { ItemInfoGetter, SearchItem } from './types';
 import { cleanTitle, getReleaseDir } from './utils';
 
 
-const sendEventMessage = async (socket: APISocket, text: string) => {
+const sendNotifyEventMessage = async (socket: APISocket, text: string) => {
   try {
     await socket.post('events', {
-      text,
+      text: `[airdcpp-search-sites]: ${text}`,
       severity: 'notify',
     });
   } catch (e) {
@@ -46,7 +46,8 @@ export const getMenuItems = <IdT, EntityIdT>(
         try {
           searchTerms = await searchTermsGetter(socket, selectedIds, entityId);
         } catch (e) {
-          sendEventMessage(socket, `Failed to get item entities: ${e.message}`);
+          console.error(`Failed to get item entities: ${e.message}`);
+          sendNotifyEventMessage(socket, `Failed to get item entities: ${e.message}`);
           return undefined;
         }
 

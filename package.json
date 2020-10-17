@@ -1,6 +1,6 @@
 {
   "name": "airdcpp-search-sites",
-  "version": "1.0.0-beta.1",
+  "version": "1.0.0-beta.2",
   "description": "Extension for adding configurable context menu items that will perform web searches for files/directories",
   "license": "MIT",
   "author": {
@@ -24,16 +24,16 @@
     "webpack": "webpack"
   },
   "devDependencies": {
-    "airdcpp-apisocket": "^2.4.0-beta.3",
+    "airdcpp-apisocket": "^2.4.0-beta.4",
     "airdcpp-extension": "^1.3.0-beta.2",
     "airdcpp-extension-settings": "^1.1.0",
     "core-js": "^3.6.5",
     "cross-env": "^7.0.2",
-    "nodemon": "^2.0.4",
+    "nodemon": "^2.0.5",
     "rimraf": "^3.0.2",
-    "ts-loader": "^8.0.3",
-    "typescript": "^4.0.2",
-    "webpack": "^4.44.1",
+    "ts-loader": "^8.0.5",
+    "typescript": "^4.0.3",
+    "webpack": "^4.44.2",
     "webpack-cli": "^3.3.12"
   },
   "main": "dist/main.js",
