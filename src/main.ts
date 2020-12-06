@@ -40,7 +40,7 @@ const Extension = function (socket: APISocket, extension: ExtensionEntryData) {
     const searchItems: SearchItem[] = settings.getValue('search_items');
 
     const subscriberInfo = {
-      id: 'airdcpp-search-sites',
+      id: extension.name,
       name: 'Search sites extension'
     };
 

@@ -20,7 +20,7 @@ export const SettingDefinitions = [
     title: 'Show in message highlight context menu',
     default_value: true,
     type: 'boolean'
-  },{
+  }, {
 		key: 'search_items',
 		title: 'Search items',
 		// optional: true,
