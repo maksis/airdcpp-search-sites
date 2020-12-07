@@ -16,14 +16,26 @@
 			"preLaunchTask": "webpack",
 			"env": {
 				"NODE_ENV": "development"
-		},
-		}/*,
-		{
+			},
+		}, {
+			"name": "Run Tests With Debugger",
 			"type": "node",
-			"request": "attach",
-			"name": "Attach to Process",
+			"request": "launch",
+			"port": 5858,
 			"address": "localhost",
-			"port": 5858
-		}*/
+			"stopOnEntry": false,
+			"runtimeExecutable": null,
+			"sourceMaps": true,
+      "args": [
+      	// "-t", "get search result items",
+      ],
+			"runtimeArgs": [
+				"--inspect-brk=5858",
+				"./node_modules/jest-cli/bin/jest.js",
+				"-i",
+				"--runInBand"
+			],
+			"cwd": "${workspaceRoot}"
+		}
 	]
 }

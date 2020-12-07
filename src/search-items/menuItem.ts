@@ -1,23 +1,14 @@
-import { APISocket, ContextMenuItem } from 'airdcpp-apisocket';
-import { ItemInfoGetter, SearchItem } from './types';
-import { cleanTitle, getReleaseDir } from './utils';
+import { ContextMenuItem } from 'airdcpp-apisocket';
+import { Context } from '../context';
+import { ItemInfoGetter, SearchItem, SeverityEnum } from '../types';
+import { cleanTitle, getDirectoryPathName, getFilePath, isDirectoryPath } from './utils';
 
-
-const sendNotifyEventMessage = async (socket: APISocket, text: string) => {
-  try {
-    await socket.post('events', {
-      text: `[airdcpp-search-sites]: ${text}`,
-      severity: 'notify',
-    });
-  } catch (e) {
-    console.error(`Failed to send event message: ${e.message}`);
-  }
-};
 
 const toItemUrl = (item: SearchItem, searchTerm: string, separator: string) => {
   const { url, clean } = item;
   
-  let query = getReleaseDir(searchTerm, separator);
+  const directoryPath = isDirectoryPath(searchTerm) ? searchTerm : getFilePath(searchTerm);
+  let query = getDirectoryPathName(directoryPath, separator);
   if (clean) {
     query = cleanTitle(query);
   }
@@ -26,11 +17,12 @@ const toItemUrl = (item: SearchItem, searchTerm: string, separator: string) => {
 };
 
 export const getMenuItems = <IdT, EntityIdT>(
-  socket: APISocket,
+  context: Context,
   items: SearchItem[], 
   searchTermsGetter: ItemInfoGetter<IdT, EntityIdT>,
   separator: string = '/'
 ): ContextMenuItem<IdT, EntityIdT>[] => {
+  const { api, logger } = context;
   return items.map(item => {
     const { name, icon } = item;
     const ret: ContextMenuItem<any, any> = {
@@ -44,10 +36,10 @@ export const getMenuItems = <IdT, EntityIdT>(
 
         // We could do some caching so that the search terms won't be fetched for every context menu item separately...
         try {
-          searchTerms = await searchTermsGetter(socket, selectedIds, entityId);
+          searchTerms = await searchTermsGetter(context, selectedIds, entityId);
         } catch (e) {
-          console.error(`Failed to get item entities: ${e.message}`);
-          sendNotifyEventMessage(socket, `Failed to get item entities: ${e.message}`);
+          logger.error(`Failed to get item entities: ${e.message}`);
+          api.postEvent(`Failed to get item entities: ${e.message}`, SeverityEnum.NOTIFY);
           return undefined;
         }
 

@@ -46,12 +46,12 @@ export const cleanTitle = (searchTerm: string) => {
 }
 
 
-export const isDirectory = (fullPath: string): boolean => {
+export const isDirectoryPath = (fullPath: string): boolean => {
   return fullPath ? !!fullPath.match(/[\\\/]$/) : false;
 };
 
 export const getParentPath = (fullPath: string): string => {
-  if (isDirectory(fullPath)) {
+  if (isDirectoryPath(fullPath)) {
     return fullPath.replace(/[^\\\/]+[\\\/]$/, '');
   }
 
@@ -59,7 +59,7 @@ export const getParentPath = (fullPath: string): string => {
 };
 
 export const getLastDirectory = (fullPath: string): string => {
-  const path = isDirectory(fullPath) ? fullPath : getParentPath(fullPath);
+  const path = isDirectoryPath(fullPath) ? fullPath : getParentPath(fullPath);
   const result = path.match(/([^\\\/]+)[\\\/]$/);
   return result ? result[1] : fullPath;
 };
@@ -70,22 +70,24 @@ export const getFilePath = (fullPath: string): string => {
 
 const subDirReg = /^(((DVD|CD|DIS(K|C)).?([0-9](0-9)?))|Sample|Cover(s)?|.{0,5}Sub(s)?)$/i;
 
-export const getReleaseDir = (path: string, separator = '/') => {
-	if (path.length < 3) {
-		return path;
+// Parse the last meaningful name from a directory path
+export const getDirectoryPathName = (directoryPath: string, separator: string) => {
+	if (directoryPath.length < 3) {
+		return directoryPath;
 	}
 
 	// Get the directory to search for
-	let i = path.endsWith(separator) ? path.length - 2 : path.length - 1;
+	let i = directoryPath.length - 2;
 	let j = 0;
 	for (;;) {
-		j = path.substr(0, i).lastIndexOf(separator);
+		j = directoryPath.substr(0, i).lastIndexOf(separator);
 		if (j === -1) {
 			j = 0;
 			break;
 		}
 
-		if (path.substr(j + 1, i - j).search(subDirReg) === -1) {
+		const directory = directoryPath.substr(j + 1, i - j);
+		if (directory.search(subDirReg) === -1) {
 			j++;
 			break;
 		}
@@ -93,5 +95,5 @@ export const getReleaseDir = (path: string, separator = '/') => {
 		i = j - 1;
 	}
 
-	return path.substr(j, i - j + 1);
+	return directoryPath.substr(j, i - j + 1);
 };

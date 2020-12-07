@@ -1,4 +1,4 @@
-// import 'source-map-support/register';
+import 'source-map-support/register';
 
 import { ManagedExtension } from 'airdcpp-extension';
 import Entry from './main';
