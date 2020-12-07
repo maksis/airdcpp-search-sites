@@ -1,3 +1,3 @@
-### Version 1.0.0 (2020-12-xx)
+### Version 1.0.0 (2020-12-07)
 
-Initial release
+- Fix directory name parsing for file paths
