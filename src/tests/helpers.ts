@@ -38,7 +38,7 @@ export const itemUrlParser = <IdT extends any, EntityIdT extends any>(
       return urls;
     }
 
-    return urls!(ids, entityId, ["admin"], ["urls"]);
+    return urls!(ids, entityId, ['admin'], ['urls']);
   };
 
   return parseUrls;
