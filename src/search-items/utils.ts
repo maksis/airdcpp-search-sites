@@ -97,3 +97,5 @@ export const getDirectoryPathName = (directoryPath: string, separator: string) =
 
 	return directoryPath.substr(j, i - j + 1);
 };
+
+export const ADC_PATH_SEPARATOR = '/';

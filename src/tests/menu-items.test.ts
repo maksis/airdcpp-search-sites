@@ -12,7 +12,7 @@ describe('Search items', () => {
 	test('get bundle items', async () => {
 		const urls = await getUrls(
 			QueueBundleItemGetter,
-			itemUrlParser([1, 2], '')
+      itemUrlParser([1, 2], ''),
 		);
 		expect(urls).toMatchSnapshot();
 	});

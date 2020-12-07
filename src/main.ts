@@ -45,6 +45,7 @@ const Extension = function (socket: APISocket, extension: ExtensionEntryData) {
     const context: Context = {
       api: API(socket),
       logger: socket.logger,
+      sessionInfo,
     };
 
     if (settings.getValue('enable_search_menu')) {
@@ -68,7 +69,7 @@ const Extension = function (socket: APISocket, extension: ExtensionEntryData) {
     if (settings.getValue('enable_queue_menu')) {
       addContextMenuItems(
         socket,
-        getMenuItems(context, searchItems, QueueBundleItemGetter, sessionInfo.system_info.path_separator),
+        getMenuItems(context, searchItems, QueueBundleItemGetter),
         'queue_bundle',
         subscriberInfo,
       );

@@ -46,7 +46,7 @@ export const itemUrlParser = <IdT extends any, EntityIdT extends any>(
 
 export const getUrls = async <IdT, EntityIdT>(
 	infoGetter: ItemInfoGetter<IdT, EntityIdT>,
-	itemParser: ReturnType<typeof itemUrlParser>
+  itemParser: ReturnType<typeof itemUrlParser>
 ) => {
 	const context = getMockContext();
 	const items = getMenuItems(context, MockSearchItems, infoGetter);

@@ -26,30 +26,39 @@ export const enum MessageHighlightType {
   BOLD = 'bold',
 }
 
+// export type FileContentType = 'audio' | 'compressed' | 'document' | 
+//  'executable' | 'picture' | 'video' | 'other' | 'filelist';
+
+export interface DirectoryType {
+  id: 'directory';
+}
+
+export interface FileType {
+  id: 'file';
+}
+
+export type FileItemType = FileType | DirectoryType;
+
 export interface MessageHighlight {
   id: number;
   text: string;
-  // description_id: string;
-  // position: {
-  //   start: number;
-  //   end: number;
-  // };
   type: MessageHighlightType;
-  // dupe: Dupe | null;
-  // content_type: FileContentType | null;
 }
 
 export interface Bundle {
   id: number;
   target: string;
+  type: FileItemType;
 }
 
 export interface FilelistItem {
   id: number;
   path: string;
+  type: FileItemType;
 }
 
 export interface GroupedSearchResult {
   id: string;
   path: string;
+  type: FileItemType;
 }

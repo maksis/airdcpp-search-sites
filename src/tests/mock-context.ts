@@ -27,18 +27,27 @@ export const getMockApi = (customHandlers: Partial<APIType> = {}): APIType => {
       return Promise.resolve({
         id: 1,
         target: 'C:\\Downloads\\Mock.Bundle.Directory-TEST\\',
+        type: {
+          id: 'directory',
+        }
       });
     },
     getFilelistItem: () => {
       return Promise.resolve({
         id: 1,
         path: '/filelist-root/Mock.Filelist.Directory-TEST/DISK1/',
+        type: {
+          id: 'directory',
+        }
       });
     },
     getGroupedSearchResult: () => {
       return Promise.resolve({
         id: 'mock-result-id',
         path: '/filelist-root/Mock.Result.Directory-TEST/Sample/mock-sample.file',
+        type: {
+          id: 'file',
+        }
       });
     },
     getHubMessageHighlights: () => {
@@ -59,7 +68,12 @@ export interface MockContextOptions {
 export const getMockContext = (options: Partial<MockContextOptions> = {}) => {
   const context: Context = {
     api: getMockApi(options.api),
-    logger, 
+    logger,
+    sessionInfo: {
+      system_info: {
+        path_separator: '\\', // Force to Windows separator to make it different from the ADC path separator
+      }
+    }
   };
 
   return context;

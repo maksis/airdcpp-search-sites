@@ -1,5 +1,6 @@
 import { parseMagnetLink } from './magnet';
-import { ItemInfoGetter, MessageHighlight, MessageHighlightType } from '../types';
+import { FileItemType, ItemInfoGetter, MessageHighlight, MessageHighlightType } from '../types';
+import { ADC_PATH_SEPARATOR, getDirectoryPathName, getFilePath } from './utils';
 
 
 const parseHighlightText = (highlight: MessageHighlight) => {
@@ -20,6 +21,13 @@ const parseHighlightText = (highlight: MessageHighlight) => {
   return highlight.text;
 };
 
+// Parse the last meaningful directory name from the path
+const parseDirectoryName = (path: string, type: FileItemType, separator = ADC_PATH_SEPARATOR) => {
+  const directoryPath = type.id === 'directory' ? path : getFilePath(path);
+  const query = getDirectoryPathName(directoryPath, separator);
+  return query;
+};
+
 export const HubMessageHighlightItemGetter: ItemInfoGetter<number, number> = async ({ api }, selectedIds, entityId) => {
   const results = await Promise.all(selectedIds.map(id => api.getHubMessageHighlights(id, entityId)));
   return results.map(parseHighlightText);
@@ -30,17 +38,17 @@ export const PrivateChatMessageHighlightItemGetter: ItemInfoGetter<number, strin
   return results.map(parseHighlightText);
 };
 
-export const QueueBundleItemGetter: ItemInfoGetter<number, string> = async ({ api }, selectedIds) => {
+export const QueueBundleItemGetter: ItemInfoGetter<number, string> = async ({ api, sessionInfo }, selectedIds) => {
   const results = await Promise.all(selectedIds.map(id => api.getBundle(id)));
-  return results.map(result => result.target);
+  return results.map(result => parseDirectoryName(result.target, result.type, sessionInfo.system_info.path_separator));
 };
 
 export const FilelistItemGetter: ItemInfoGetter<number, string> = async ({ api }, selectedIds, entityId) => {
   const results = await Promise.all(selectedIds.map(id => api.getFilelistItem(id, entityId)));
-  return results.map(result => result.path);
+  return results.map(result => parseDirectoryName(result.path, result.type, ADC_PATH_SEPARATOR));
 };
 
 export const SearchItemGetter: ItemInfoGetter<string, number> = async ({ api }, selectedIds, entityId) => {
   const results = await Promise.all(selectedIds.map(id => api.getGroupedSearchResult(id, entityId)));
-  return results.map(result => result.path);
+  return results.map(result => parseDirectoryName(result.path, result.type, ADC_PATH_SEPARATOR));
 };
