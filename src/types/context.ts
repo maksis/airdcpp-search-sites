@@ -1,5 +1,7 @@
 import { Logger } from 'airdcpp-apisocket';
-import { APIType } from './api';
+import { APIType } from '../api';
+
+import { SearchItem } from './search-item';
 
 
 export interface SessionInfo {
@@ -13,4 +15,5 @@ export interface Context {
   api: APIType;
   logger: Logger;
   sessionInfo: SessionInfo;
+  getSearchItems: () => SearchItem[];
 }

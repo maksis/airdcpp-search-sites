@@ -10,9 +10,8 @@ import { APISocket, addContextMenuItems } from 'airdcpp-apisocket';
 import SettingsManager from 'airdcpp-extension-settings';
 import { ExtensionEntryData } from 'airdcpp-extension';
 
-import { SearchItem } from './types';
 import { CONFIG_VERSION, SettingDefinitions } from './settings';
-import { Context, SessionInfo } from './context';
+import { Context, SessionInfo } from './types';
 import { API } from './api';
 
 import { 
@@ -35,7 +34,7 @@ const Extension = function (socket: APISocket, extension: ExtensionEntryData) {
   extension.onStart = async (sessionInfo: SessionInfo) => {
     await settings.load();
     
-    const searchItems: SearchItem[] = settings.getValue('search_items');
+    // const searchItems: SearchItem[] = ;
 
     const subscriberInfo = {
       id: extension.name,
@@ -46,12 +45,13 @@ const Extension = function (socket: APISocket, extension: ExtensionEntryData) {
       api: API(socket),
       logger: socket.logger,
       sessionInfo,
+      getSearchItems: () => settings.getValue('search_items'),
     };
 
     if (settings.getValue('enable_search_menu')) {
       addContextMenuItems(
         socket,
-        getMenuItems(context, searchItems, SearchItemGetter),
+        getMenuItems(context, SearchItemGetter),
         'grouped_search_result',
         subscriberInfo,
       );
@@ -60,7 +60,7 @@ const Extension = function (socket: APISocket, extension: ExtensionEntryData) {
     if (settings.getValue('enable_filelist_menu')) {
       addContextMenuItems(
         socket,
-        getMenuItems(context, searchItems, FilelistItemGetter),
+        getMenuItems(context, FilelistItemGetter),
         'filelist_item',
         subscriberInfo,
       );
@@ -69,7 +69,7 @@ const Extension = function (socket: APISocket, extension: ExtensionEntryData) {
     if (settings.getValue('enable_queue_menu')) {
       addContextMenuItems(
         socket,
-        getMenuItems(context, searchItems, QueueBundleItemGetter),
+        getMenuItems(context, QueueBundleItemGetter),
         'queue_bundle',
         subscriberInfo,
       );
@@ -78,14 +78,14 @@ const Extension = function (socket: APISocket, extension: ExtensionEntryData) {
     if (settings.getValue('enable_message_highlight_menu')) {
       addContextMenuItems(
         socket,
-        getMenuItems(context, searchItems, HubMessageHighlightItemGetter),
+        getMenuItems(context, HubMessageHighlightItemGetter),
         'hub_message_highlight',
         subscriberInfo,
       );
 
       addContextMenuItems(
         socket,
-        getMenuItems(context, searchItems, PrivateChatMessageHighlightItemGetter),
+        getMenuItems(context, PrivateChatMessageHighlightItemGetter),
         'private_chat_message_highlight',
         subscriberInfo,
       );

@@ -1,8 +1,8 @@
-import { Context } from 'src/context';
+import { Context } from 'src/types/context';
 
 import { MockLogger as logger } from 'src/tests/helpers';
 import { APIType } from 'src/api';
-import { MessageHighlight, MessageHighlightType } from '../types';
+import { MessageHighlight, MessageHighlightType, SearchItem } from '../types';
 
 
 const MOCK_MESSAGE_HIGHLIGHT_URL: MessageHighlight = {
@@ -61,6 +61,20 @@ export const getMockApi = (customHandlers: Partial<APIType> = {}): APIType => {
   return api as APIType;
 };
 
+
+
+export const MockSearchItems: SearchItem[] = [
+  {
+    name: 'mock item 1',
+    url: 'http://mock-url1/',
+    clean: false,
+  }, {
+    name: 'mock item 2',
+    url: 'http://mock-url2/',
+    clean: true,
+  }
+];
+
 export interface MockContextOptions {
   api?: Partial<APIType>,
 }
@@ -73,7 +87,8 @@ export const getMockContext = (options: Partial<MockContextOptions> = {}) => {
       system_info: {
         path_separator: '\\', // Force to Windows separator to make it different from the ADC path separator
       }
-    }
+    },
+    getSearchItems: () => MockSearchItems,
   };
 
   return context;

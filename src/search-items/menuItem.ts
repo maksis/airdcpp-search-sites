@@ -1,5 +1,5 @@
 import { ContextMenuItem } from 'airdcpp-apisocket';
-import { Context } from '../context';
+import { Context } from '../types/context';
 import { ItemInfoGetter, SearchItem, SeverityEnum } from '../types';
 import { cleanTitle } from './utils';
 
@@ -12,11 +12,10 @@ const toItemUrl = (item: SearchItem, searchTerm: string) => {
 
 export const getMenuItems = <IdT, EntityIdT>(
   context: Context,
-  items: SearchItem[], 
   searchTermsGetter: ItemInfoGetter<IdT, EntityIdT>
 ): ContextMenuItem<IdT, EntityIdT>[] => {
   const { api, logger } = context;
-  return items.map(item => {
+  return context.getSearchItems().map(item => {
     const { name, icon } = item;
     const ret: ContextMenuItem<any, any> = {
       id: name,

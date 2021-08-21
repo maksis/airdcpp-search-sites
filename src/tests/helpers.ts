@@ -1,4 +1,4 @@
-import { ItemInfoGetter, SearchItem } from 'src/types';
+import { ItemInfoGetter } from 'src/types';
 
 
 import {
@@ -15,18 +15,6 @@ export const MockLogger = {
   warn: () => {},
   error: () => {},
 };
-
-export const MockSearchItems: SearchItem[] = [
-  {
-    name: 'mock item 1',
-    url: 'http://mock-url1/',
-    clean: false,
-  }, {
-    name: 'mock item 2',
-    url: 'http://mock-url2/',
-    clean: true,
-  }
-];
 
 export const itemUrlParser = <IdT extends any, EntityIdT extends any>(
   ids: IdT[],
@@ -49,7 +37,7 @@ export const getUrls = async <IdT, EntityIdT>(
   itemParser: ReturnType<typeof itemUrlParser>
 ) => {
   const context = getMockContext();
-  const items = getMenuItems(context, MockSearchItems, infoGetter);
+  const items = getMenuItems(context, infoGetter);
 
   const urls = await Promise.all(items.map(itemParser));
   return urls;

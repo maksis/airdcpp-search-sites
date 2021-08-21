@@ -1,17 +1,3 @@
-import { Context } from './context';
-
-
-// Internal
-export type ItemInfoGetter<IdT, EntityIdT> = (context: Context, selectedIds: IdT[], entityId: EntityIdT) => Promise<string[]>;
-
-export interface SearchItem {
-  name: string;
-  url: string;
-  clean: boolean;
-  icon?: string;
-}
-
-// API
 export const enum SeverityEnum {
   NOTIFY = 'notify',
   INFO = 'info',
