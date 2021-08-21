@@ -33,6 +33,7 @@
     "jest": "^27.0.6",
     "jest-cli": "^27.0.6",
     "nodemon": "^2.0.12",
+    "pre-commit": "^1.2.2",
     "prettier": "^2.3.2",
     "rimraf": "^3.0.2",
     "ts-jest": "^27.0.5",
@@ -45,5 +46,8 @@
   "airdcpp": {
     "apiVersion": 1,
     "minApiFeatureLevel": 5
-  }
+  },
+  "pre-commit": [
+    "test"
+  ]
 }
