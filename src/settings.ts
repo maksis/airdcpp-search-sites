@@ -65,7 +65,7 @@ export const SettingDefinitions = [
       }, {
         name: 'IMDB',
         icon: 'yellow imdb',
-        url: 'https://www.imdb.com/find?q=',
+        url: 'https://www.imdb.com/search/title/?title=',
         clean: true,
       }
     ],
