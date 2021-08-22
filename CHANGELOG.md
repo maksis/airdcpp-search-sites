@@ -1,3 +1,8 @@
+### Version 1.1.0 (2021-08-22)
+
+- It's no longer needed to restart the extension after changing the settings
+- Use an IMDB search URL that works with the IMDB application on mobile devices
+
 ### Version 1.0.2 (2021-01-05)
 
 - Avoid timeouts when the system is unresponsive

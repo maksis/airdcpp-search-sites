@@ -1,6 +1,6 @@
 {
   "name": "airdcpp-search-sites",
-  "version": "1.0.2",
+  "version": "1.1.0",
   "description": "Extension for adding configurable context menu items that will perform web searches for files/directories",
   "license": "MIT",
   "author": {
