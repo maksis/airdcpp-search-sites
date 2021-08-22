@@ -3,7 +3,7 @@
 // Entry point for extension-specific code
 
 // Helper method for adding context menu items, docs: https://github.com/airdcpp-web/airdcpp-apisocket-js/blob/master/GUIDE.md#addContextMenuItems
-import { APISocket, addContextMenuItems } from 'airdcpp-apisocket';
+import { APISocket, addContextMenuItems, EntityId } from 'airdcpp-apisocket';
 
 // Settings manager docs: https://github.com/airdcpp-web/airdcpp-extension-settings-js
 //@ts-ignore
@@ -11,7 +11,7 @@ import SettingsManager from 'airdcpp-extension-settings';
 import { ExtensionEntryData } from 'airdcpp-extension';
 
 import { CONFIG_VERSION, SettingDefinitions } from './settings';
-import { Context, SessionInfo } from './types';
+import { Context, ItemInfoGetter, SessionInfo } from './types';
 import { API } from './api';
 
 import { 
@@ -20,6 +20,42 @@ import {
   HubMessageHighlightItemGetter, PrivateChatMessageHighlightItemGetter,
 } from './search-items';
 
+
+const addMenuItems = async (context: Context, socket: APISocket, settings: any, extension: ExtensionEntryData) => {
+  const subscriberInfo = {
+    id: extension.name,
+    name: 'Search sites extension'
+  };
+
+  let removeListeners: (() => void)[] = [];
+
+  const addHook = async <IdT, EntityIdT extends EntityId | undefined>(
+    settingId: string, 
+    hookId: string, 
+    itemInfoGetter: ItemInfoGetter<IdT, EntityIdT>
+  ) => {
+    if (settings.getValue(settingId)) {
+      const removeCallback = await addContextMenuItems(
+        socket, 
+        getMenuItems(context, itemInfoGetter), 
+        hookId, 
+        subscriberInfo
+      );
+
+      removeListeners.push(removeCallback);
+    }
+  };
+
+  await addHook('enable_search_menu', 'grouped_search_result', SearchItemGetter);
+  await addHook('enable_filelist_menu', 'filelist_item', FilelistItemGetter);
+  await addHook('enable_queue_menu', 'queue_bundle', QueueBundleItemGetter);
+  await addHook('enable_message_highlight_menu', 'hub_message_highlight', HubMessageHighlightItemGetter);
+  await addHook('enable_message_highlight_menu', 'private_chat_message_highlight', PrivateChatMessageHighlightItemGetter);
+
+  return () => {
+    removeListeners.forEach(remove => remove());
+  };
+};
 
 // Entry point docs: https://github.com/airdcpp-web/airdcpp-extension-js#extension-entry-structure
 // Socket reference: https://github.com/airdcpp-web/airdcpp-apisocket-js/blob/master/GUIDE.md
@@ -31,15 +67,10 @@ const Extension = function (socket: APISocket, extension: ExtensionEntryData) {
     definitions: SettingDefinitions,
   });
 
+  let removeListeners: () => void;
+
   extension.onStart = async (sessionInfo: SessionInfo) => {
     await settings.load();
-    
-    // const searchItems: SearchItem[] = ;
-
-    const subscriberInfo = {
-      id: extension.name,
-      name: 'Search sites extension'
-    };
 
     const context: Context = {
       api: API(socket),
@@ -48,48 +79,13 @@ const Extension = function (socket: APISocket, extension: ExtensionEntryData) {
       getSearchItems: () => settings.getValue('search_items'),
     };
 
-    if (settings.getValue('enable_search_menu')) {
-      addContextMenuItems(
-        socket,
-        getMenuItems(context, SearchItemGetter),
-        'grouped_search_result',
-        subscriberInfo,
-      );
-    }
+    removeListeners = await addMenuItems(context, socket, settings, extension);
 
-    if (settings.getValue('enable_filelist_menu')) {
-      addContextMenuItems(
-        socket,
-        getMenuItems(context, FilelistItemGetter),
-        'filelist_item',
-        subscriberInfo,
-      );
-    }
-
-    if (settings.getValue('enable_queue_menu')) {
-      addContextMenuItems(
-        socket,
-        getMenuItems(context, QueueBundleItemGetter),
-        'queue_bundle',
-        subscriberInfo,
-      );
-    }
-
-    if (settings.getValue('enable_message_highlight_menu')) {
-      addContextMenuItems(
-        socket,
-        getMenuItems(context, HubMessageHighlightItemGetter),
-        'hub_message_highlight',
-        subscriberInfo,
-      );
-
-      addContextMenuItems(
-        socket,
-        getMenuItems(context, PrivateChatMessageHighlightItemGetter),
-        'private_chat_message_highlight',
-        subscriberInfo,
-      );
-    }
+    settings.onValuesUpdated = async () => {
+      // Reset menu item hooks
+      removeListeners();
+      removeListeners = await addMenuItems(context, socket, settings, extension);
+    };
   };
 };
 
