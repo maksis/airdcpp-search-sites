@@ -24,7 +24,7 @@ import {
 const addMenuItems = async (context: Context, socket: APISocket, settings: any, extension: ExtensionEntryData) => {
   const subscriberInfo = {
     id: extension.name,
-    name: 'Search sites extension'
+    name: 'Search sites'
   };
 
   let removeListeners: (() => void)[] = [];
