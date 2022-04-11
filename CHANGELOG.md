@@ -1,3 +1,7 @@
+### Version 1.1.1 (2022-04-11)
+
+- Remove the word "extension" from the extension that is being sent to the API
+
 ### Version 1.1.0 (2021-08-22)
 
 - It's no longer needed to restart the extension after changing the settings
