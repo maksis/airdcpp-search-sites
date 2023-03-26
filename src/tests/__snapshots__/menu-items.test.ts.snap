@@ -1,12 +1,12 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`Search items get bundle items 1`] = `
-Array [
-  Array [
+[
+  [
     "http://mock-url1/Mock.Bundle.Directory-TEST",
     "http://mock-url1/Mock.Bundle.Directory-TEST",
   ],
-  Array [
+  [
     "http://mock-url2/mock%20bundle%20directory",
     "http://mock-url2/mock%20bundle%20directory",
   ],
@@ -14,12 +14,12 @@ Array [
 `;
 
 exports[`Search items get filelist items 1`] = `
-Array [
-  Array [
+[
+  [
     "http://mock-url1/Mock.Filelist.Directory-TEST",
     "http://mock-url1/Mock.Filelist.Directory-TEST",
   ],
-  Array [
+  [
     "http://mock-url2/mock%20filelist%20directory",
     "http://mock-url2/mock%20filelist%20directory",
   ],
@@ -27,12 +27,12 @@ Array [
 `;
 
 exports[`Search items get search result items 1`] = `
-Array [
-  Array [
+[
+  [
     "http://mock-url1/Mock.Result.Directory-TEST",
     "http://mock-url1/Mock.Result.Directory-TEST",
   ],
-  Array [
+  [
     "http://mock-url2/mock%20result%20directory",
     "http://mock-url2/mock%20result%20directory",
   ],
@@ -40,12 +40,12 @@ Array [
 `;
 
 exports[`Search items hub message highlights 1`] = `
-Array [
-  Array [
+[
+  [
     "http://mock-url1/mock%2Bmagnet%2Bfile.log",
     "http://mock-url1/mock%2Bmagnet%2Bfile.log",
   ],
-  Array [
+  [
     "http://mock-url2/mock%2Bmagnet%2Bfile%20log",
     "http://mock-url2/mock%2Bmagnet%2Bfile%20log",
   ],
@@ -53,12 +53,12 @@ Array [
 `;
 
 exports[`Search items private chat message highlights 1`] = `
-Array [
-  Array [
+[
+  [
     "http://mock-url1/Mock.Highlight.Text-TEST",
     "http://mock-url1/Mock.Highlight.Text-TEST",
   ],
-  Array [
+  [
     "http://mock-url2/mock%20highlight%20text",
     "http://mock-url2/mock%20highlight%20text",
   ],

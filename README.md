@@ -1,4 +1,4 @@
-# airdcpp-search-sites [![Travis][build-badge]][build] [![npm package][npm-badge]][npm] [![Coverage][coverage-badge]][coverage]
+# airdcpp-search-sites [![Node.js CI][build-badge]][build] [![npm package][npm-badge]][npm] [![Coverage][coverage-badge]][coverage]
 
 AirDC++ extension that allows adding context menu items for search results, filelist items, queued bundles and chat message highlights that will search the selected items from selected web sites (e.g. Google, IMDB).
 
@@ -21,8 +21,9 @@ This extension is based on the [airdcpp-create-extension](https://github.com/air
 You may run the tests with `npm run test`.
 
 
-[build-badge]: https://img.shields.io/travis/maksis/airdcpp-search-sites/master.svg?style=flat-square
-[build]: https://travis-ci.org/maksis/airdcpp-search-sites
+
+[build-badge]: https://github.com/maksis/airdcpp-search-sites/actions/workflows/node.js.yml/badge.svg
+[build]: https://github.com/maksis/airdcpp-search-sites/actions/workflows/node.js.yml
 
 [npm-badge]: https://img.shields.io/npm/v/airdcpp-search-sites.svg?style=flat-square
 [npm]: https://www.npmjs.org/package/airdcpp-search-sites

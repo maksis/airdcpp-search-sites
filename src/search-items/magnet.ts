@@ -13,27 +13,27 @@ export const parseMagnetLink = (text: string): Magnet | null => {
   let fname, fsize, hash;
 
   {
-    const tokens = text.substr(8).split('&');
+    const tokens = text.substring(8).split('&');
     let type, param;
-    const hashes = {};
+    const hashes: any = {};
     for (const idx of tokens) {
       const pos = idx.indexOf('=');
       if (pos !== -1) {
-        type = decodeURIComponent(idx.substr(0, pos));
-        param = decodeURIComponent(idx.substr(pos + 1));
+        type = decodeURIComponent(idx.substring(0, pos));
+        param = decodeURIComponent(idx.substring(pos + 1));
       } else {
         type = decodeURIComponent(idx);
         param = '';
       }
 
       if (param.length === 85 && param.startsWith('urn:bitprint:')) {
-        hashes[type] = param.substr(46);
+        hashes[type] = param.substring(46);
       } else if (param.length === 54 && param.startsWith('urn:tree:tiger:')) {
-        hashes[type] = param.substr(15);
+        hashes[type] = param.substring(15);
       } else if (param.length === 55 && param.startsWith('urn:tree:tiger/:')) {
-        hashes[type] = param.substr(16);
+        hashes[type] = param.substring(16);
       } else if (param.length === 59 && param.startsWith('urn:tree:tiger/1024:')) {
-        hashes[type] = param.substr(20);
+        hashes[type] = param.substring(20);
       } else if (type.length === 2 && type.startsWith('dn')) {
         fname = param;
       } else if (type.length === 2 && type.startsWith('xl')) {
