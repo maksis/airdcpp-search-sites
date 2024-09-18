@@ -9,7 +9,7 @@
 			"request": "launch",
 			"console": "integratedTerminal",
 			"name": "Launch Program",
-			"program": "${workspaceRoot}\\devtools\\dev-server.js",
+			"program": "${workspaceRoot}\\devtools\\dev-server.mjs",
 			"protocol": "inspector",
 			"cwd": "${workspaceRoot}",
 			"outFiles": [ "${workspaceRoot}/dist/*.js" ],
