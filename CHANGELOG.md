@@ -1,3 +1,8 @@
+### Version 1.2.0 (2024-09-18)
+
+- Fix handling of items where year is part of the actual title
+- Add a custom icon for the nested context menu in Web UI
+
 ### Version 1.1.1 (2022-04-11)
 
 - Remove the word "extension" from the extension that is being sent to the API
