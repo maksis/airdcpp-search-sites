@@ -6,7 +6,7 @@ const extrawords = [
   'ws', 'int' 
 ];
 
-const yearReg = /((\[)?((19[0-9]{2})|(20[0-9]{2}))|(s[0-9]([0-9])?(e|d)[0-9]([0-9])?)|(Season(\.)[0-9]([0-9])?)).*/;
+const yearReg = /((\[)?((19[0-9]{2})|(20[0-9]{2}))|(s[0-9]([0-9])?(e|d)[0-9]([0-9])?)|(Season(\.)[0-9]([0-9])?))/g;
 
 export const cleanTitle = (searchTerm: string) => {
   let ret = searchTerm.toLocaleLowerCase();
@@ -15,7 +15,7 @@ export const cleanTitle = (searchTerm: string) => {
   {
     const pos = ret.lastIndexOf('-');
     if (pos !== -1) {
-      ret = ret.substr(0, pos);
+      ret = ret.substring(0, pos);
     }
   }
 
@@ -26,10 +26,12 @@ export const cleanTitle = (searchTerm: string) => {
 
 
   // Remove words after year/episode
+  // Find the last match as also the name may contain a year
   {
-    const match = ret.search(yearReg);
-    if (match !== -1) {
-      ret = ret.substr(0, match);
+    const match = ret.match(yearReg);
+    if (match) {
+      const lastMatch = match.pop()!;
+      ret = ret.substring(0, ret.lastIndexOf(lastMatch) - 1);
     }
   }
 
@@ -80,13 +82,13 @@ export const getDirectoryPathName = (directoryPath: string, separator: string) =
   let i = directoryPath.length - 2;
   let j = 0;
   for (;;) {
-    j = directoryPath.substr(0, i).lastIndexOf(separator);
+    j = directoryPath.substring(0, i).lastIndexOf(separator);
     if (j === -1) {
       j = 0;
       break;
     }
 
-    const directory = directoryPath.substr(j + 1, i - j);
+    const directory = directoryPath.substring(j + 1, i + 1);
     if (directory.search(subDirReg) === -1) {
       j++;
       break;
@@ -95,7 +97,7 @@ export const getDirectoryPathName = (directoryPath: string, separator: string) =
     i = j - 1;
   }
 
-  return directoryPath.substr(j, i - j + 1);
+  return directoryPath.substring(j, i + 1);
 };
 
 export const ADC_PATH_SEPARATOR = '/';

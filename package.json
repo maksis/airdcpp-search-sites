@@ -34,7 +34,7 @@
     "jest-cli": "^29.0.3",
     "nodemon": "^2.0.19",
     "pre-commit": "^1.2.2",
-    "prettier": "^2.7.1",
+    "prettier": "^3.3.3",
     "rimraf": "^4.4.1",
     "ts-jest": "^29.0.0",
     "ts-loader": "^9.3.1",

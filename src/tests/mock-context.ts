@@ -13,7 +13,7 @@ const MOCK_MESSAGE_HIGHLIGHT_URL: MessageHighlight = {
 
 const MOCK_MESSAGE_HIGHLIGHT_TEXT: MessageHighlight = {
   id: 2,
-  text: 'Mock.Highlight.Text-TEST',
+  text: 'Mock.Highlight.Text.Internal-TEST',
   type: MessageHighlightType.LINK_TEXT,
 };
 
@@ -26,7 +26,7 @@ export const getMockApi = (customHandlers: Partial<APIType> = {}): APIType => {
     getBundle: () => {
       return Promise.resolve({
         id: 1,
-        target: 'C:\\Downloads\\Mock.Bundle.Directory-TEST\\',
+        target: 'C:\\Downloads\\2001.Mock.Bundle.Directory.1999-TEST\\',
         type: {
           id: 'directory',
         }
@@ -35,7 +35,7 @@ export const getMockApi = (customHandlers: Partial<APIType> = {}): APIType => {
     getFilelistItem: () => {
       return Promise.resolve({
         id: 1,
-        path: '/filelist-root/Mock.Filelist.Directory-TEST/DISK1/',
+        path: '/filelist-root/Mock.Filelist.Directory.s02e04-TEST/DISK1/',
         type: {
           id: 'directory',
         }
@@ -44,7 +44,7 @@ export const getMockApi = (customHandlers: Partial<APIType> = {}): APIType => {
     getGroupedSearchResult: () => {
       return Promise.resolve({
         id: 'mock-result-id',
-        path: '/filelist-root/Mock.Result.Directory-TEST/Sample/mock-sample.file',
+        path: '/filelist-root/Mock.Result.Directory.2000.Internal-TEST/Sample/mock-sample.file',
         type: {
           id: 'file',
         }
