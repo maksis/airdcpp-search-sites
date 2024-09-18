@@ -39,7 +39,12 @@ const addMenuItems = async (context: Context, socket: APISocket, settings: any, 
         socket, 
         getMenuItems(context, itemInfoGetter), 
         hookId, 
-        subscriberInfo
+        {
+          ...subscriberInfo,
+          icon: {
+            semantic: 'external alternate',
+          }
+        }
       );
 
       removeListeners.push(removeCallback);
