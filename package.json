@@ -26,7 +26,7 @@
   },
   "devDependencies": {
     "@types/jest": "^29.0.2",
-    "airdcpp-extension": "^1.5.1",
+    "airdcpp-extension": "^2.0.0-beta",
     "airdcpp-extension-settings": "^1.2.1",
     "core-js": "^3.25.1",
     "cross-env": "^7.0.3",

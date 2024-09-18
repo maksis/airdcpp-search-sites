@@ -23,7 +23,7 @@ export const getMenuItems = <IdT, EntityIdT>(
       icon: {
         semantic: icon || 'external',
       },
-      urls: async (selectedIds, entityId) => {
+      urls: async ({ selectedIds, entityId }) => {
         let searchTerms: string[] = [];
 
         // We could do some caching so that the search terms won't be fetched for every context menu item separately...

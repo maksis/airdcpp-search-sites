@@ -17,7 +17,7 @@ export const MockLogger = {
 };
 
 export const itemUrlParser = <IdT extends any, EntityIdT extends any>(
-  ids: IdT[],
+  selectedIds: IdT[],
   entityId: EntityIdT
 ) => {
   const parseUrls = (item: ContextMenuItem<IdT, EntityIdT>) => {
@@ -26,7 +26,12 @@ export const itemUrlParser = <IdT extends any, EntityIdT extends any>(
       return urls;
     }
 
-    return urls!(ids, entityId, ['admin'], ['urls']);
+    return urls!({
+      selectedIds, 
+      entityId, 
+      permissions: ['admin'], 
+      supports: ['urls']
+    });
   };
 
   return parseUrls;
