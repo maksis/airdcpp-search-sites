@@ -16,7 +16,7 @@ export const MockLogger = {
   error: () => {},
 };
 
-export const itemUrlParser = <IdT extends any, EntityIdT extends any>(
+export const itemUrlParser = <IdT, EntityIdT>(
   selectedIds: IdT[],
   entityId: EntityIdT
 ) => {

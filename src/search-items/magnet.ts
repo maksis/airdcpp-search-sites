@@ -18,12 +18,12 @@ export const parseMagnetLink = (text: string): Magnet | null => {
     const hashes: any = {};
     for (const idx of tokens) {
       const pos = idx.indexOf('=');
-      if (pos !== -1) {
-        type = decodeURIComponent(idx.substring(0, pos));
-        param = decodeURIComponent(idx.substring(pos + 1));
-      } else {
+      if (pos === -1) {
         type = decodeURIComponent(idx);
         param = '';
+      } else {
+        type = decodeURIComponent(idx.substring(0, pos));
+        param = decodeURIComponent(idx.substring(pos + 1));
       }
 
       if (param.length === 85 && param.startsWith('urn:bitprint:')) {
@@ -37,7 +37,7 @@ export const parseMagnetLink = (text: string): Magnet | null => {
       } else if (type.length === 2 && type.startsWith('dn')) {
         fname = param;
       } else if (type.length === 2 && type.startsWith('xl')) {
-        fsize = parseInt(param);
+        fsize = Number.parseInt(param);
       }
     }
 

@@ -20,9 +20,7 @@ export const cleanTitle = (searchTerm: string) => {
   }
 
   // Replace separator chars with spaces
-  {
-    ret = ret.replace(/\.|_/g, ' ');
-  }
+  ret = ret.replace(/\.|_/g, ' ');
 
 
   // Remove words after year/episode
@@ -36,11 +34,9 @@ export const cleanTitle = (searchTerm: string) => {
   }
 
   // Remove extra words
-  {
-    ret += ' ';
-    for (const extraWord of extrawords) {
-      ret = ret.replace(` ${extraWord} `, ' ');
-    }
+  ret += ' ';
+  for (const extraWord of extrawords) {
+    ret = ret.replace(` ${extraWord} `, ' ');
   }
 
   //trim spaces from the end

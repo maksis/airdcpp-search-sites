@@ -11,7 +11,7 @@ const parseHighlightText = (highlight: MessageHighlight) => {
     case MessageHighlightType.LINK_URL: {
       if (highlight.text.startsWith('magnet:?')) {
         const magnet = parseMagnetLink(highlight.text);
-        if (magnet && magnet.name) {
+        if (magnet?.name) {
           return magnet.name;
         }
       }

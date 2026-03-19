@@ -12,9 +12,6 @@ export const enum MessageHighlightType {
   BOLD = 'bold',
 }
 
-// export type FileContentType = 'audio' | 'compressed' | 'document' | 
-//  'executable' | 'picture' | 'video' | 'other' | 'filelist';
-
 export interface DirectoryType {
   id: 'directory';
 }
